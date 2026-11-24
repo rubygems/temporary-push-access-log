@@ -1,0 +1,211 @@
+name: Temporary push access request
+description: Ask RubyGems.org to let a maintainer publish one release of a gem they do not own.
+title: "[Request] <gem name> <proposed version>"
+labels: ["request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This issue is public and permanent.** Do not include email addresses, phone numbers, identity documents, private correspondence with gem owners, credentials, or undisclosed vulnerability details. Refer to people by their public account names only. Operators will contact you privately for anything else.
+
+        **Undisclosed vulnerability?** Do not open this issue. Email security@rubygems.org instead.
+
+        The person opening this issue is the requester. The grantee is the person who will publish the release; it may be you or another maintainer.
+
+  - type: checkboxes
+    id: preconditions
+    attributes:
+      label: Before you start
+      options:
+        - label: Any vulnerability this release fixes is already public. Undisclosed vulnerabilities go to security@rubygems.org.
+          required: true
+        - label: This request contains no private contact details, private correspondence, credentials, or other private information.
+          required: true
+        - label: This is not account recovery, a dispute between owners, or a request to work around an owner who has replied and declined.
+          required: true
+
+  - type: markdown
+    attributes:
+      value: "## The gem"
+
+  - type: input
+    id: gem
+    attributes:
+      label: Gem name
+      description: The name on RubyGems.org.
+      placeholder: example-gem
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Canonical repository
+      description: The repository the gem's own metadata points at, or the one its last owner-published version was built from.
+      placeholder: https://github.com/example/example-gem
+    validations:
+      required: true
+
+  - type: textarea
+    id: canonical-evidence
+    attributes:
+      label: Why this repository is canonical
+      description: For example, the gem's `source_code_uri` or `homepage_uri`, or the tag or commit the last owner-published version was built from. An unrelated fork does not qualify.
+    validations:
+      required: true
+
+  - type: textarea
+    id: importance
+    attributes:
+      label: Why the ecosystem depends on this gem
+      description: How widely it is used (reverse dependencies, downloads, notable dependents), and how hard it would be for users to move to something else.
+    validations:
+      required: true
+
+  - type: textarea
+    id: maintenance
+    attributes:
+      label: Evidence the gem is still maintained
+      description: Links showing that people other than the owner hold merge rights on the canonical repository and are using them, such as recently merged pull requests.
+    validations:
+      required: true
+
+  - type: textarea
+    id: owner-availability
+    attributes:
+      label: What you know about the owners and publishers being unavailable
+      description: |
+        Public links only, such as an unanswered issue asking for a release or the owners' recent GitHub activity. Do not paste private messages or email addresses.
+        You do not need to contact the owners. Operators contact every owner and organization administrator themselves; this helps them find the right contacts and assess availability.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## The proposed release"
+
+  - type: input
+    id: version
+    attributes:
+      label: Proposed version
+      description: Chosen by the maintainers, following the gem's existing version convention.
+      placeholder: 2.4.1
+    validations:
+      required: true
+
+  - type: input
+    id: previous-version
+    attributes:
+      label: Previous release this builds on
+      placeholder: 2.4.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Release source
+      description: The commit SHA, or the branch, tag, or pull request the release will be built from. It must contain only changes accepted through the project's normal process. Operators record the exact commit before approval.
+    validations:
+      required: true
+
+  - type: textarea
+    id: changes
+    attributes:
+      label: Changes since the previous release
+      description: A summary or a link to the changelog or compare view.
+    validations:
+      required: true
+
+  - type: textarea
+    id: platforms
+    attributes:
+      label: Platform builds
+      description: Every gem file this version needs, one per line. The grant covers only the files listed and approved.
+      placeholder: |
+        ruby
+        x86_64-linux
+        arm64-darwin
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-needed
+    attributes:
+      label: Why this release is needed now
+      description: What harm users face without it.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: security
+    attributes:
+      label: Is this release security-motivated?
+      options:
+        - "No"
+        - Yes, and the vulnerability is already public
+    validations:
+      required: true
+
+  - type: input
+    id: advisory
+    attributes:
+      label: Public advisory
+      description: Required for security-motivated requests. A Ruby Advisory Database entry, GitHub Security Advisory, or CVE.
+      placeholder: https://github.com/rubysec/ruby-advisory-db/...
+
+  - type: markdown
+    attributes:
+      value: "## People"
+
+  - type: input
+    id: grantee-rubygems
+    attributes:
+      label: Grantee's RubyGems.org account name
+      description: The account that will publish the release. It must be in good standing with MFA enabled.
+    validations:
+      required: true
+
+  - type: input
+    id: grantee-source-host
+    attributes:
+      label: Grantee's source-host account name
+      description: The account that holds merge rights on the canonical repository, such as a GitHub username. It must have MFA enabled.
+    validations:
+      required: true
+
+  - type: textarea
+    id: grantee-merge-rights
+    attributes:
+      label: Evidence the grantee holds merge rights
+      description: For example, links to pull requests the grantee has merged in the canonical repository.
+    validations:
+      required: true
+
+  - type: input
+    id: reviewer
+    attributes:
+      label: Proposed technical reviewer (optional)
+      description: A public account name. They must not be the grantee and must not review their own contributions. Operators may arrange a reviewer instead.
+
+  - type: textarea
+    id: conflicts
+    attributes:
+      label: Conflicts of interest
+      description: Any relationship between the requester, grantee, or reviewer and RubyGems.org operators, the gem's owners, or a party with a stake in the release. Write "None" if there are none.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Agreements
+      options:
+        - label: The requester and grantee agree to be identified in this public log by their public account names.
+          required: true
+        - label: The grantee has MFA enabled on both their RubyGems.org account and the source-host account named above.
+          required: true
+        - label: The grantee agrees to be identified privately to Ruby Central when operators ask.
+          required: true
+        - label: I understand a grant permits publishing only the approved files for one version within 72 hours, and does not make the grantee an owner or maintainer of the gem.
+          required: true

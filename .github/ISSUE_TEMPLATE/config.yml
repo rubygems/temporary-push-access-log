@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Undisclosed vulnerability — email security@rubygems.org
+    url: https://rubygems.org/pages/security
+    about: Do not open an issue for a vulnerability that is not yet public. Email security@rubygems.org instead.
+  - name: Account recovery or ownership questions
+    url: https://rubygems.org/policies/acceptable-use
+    about: This log is not for account recovery or ownership disputes. Contact support@rubygems.org.
